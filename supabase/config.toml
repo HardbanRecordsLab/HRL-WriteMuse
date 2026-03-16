@@ -1,0 +1,7 @@
+project_id = "mfwjtuidvykbbvgtaodh"
+
+[functions.ai-writer]
+verify_jwt = false
+
+[functions.generate-illustration]
+verify_jwt = false

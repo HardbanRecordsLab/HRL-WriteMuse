@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dtr.studio/manifest.schema.json",
+  "title": "DTR Assembly Manifest",
+  "type": "object",
+  "required": ["version", "metadata", "sections"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["2.0"]
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["title", "author", "language"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+        },
+        "isbn": {
+          "type": "string",
+          "pattern": "^[0-9\\-]{10,17}$"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "chapter", "title", "placeholders"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9\\-_]+$"
+          },
+          "chapter": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "content": {
+            "type": "string"
+          },
+          "placeholders": {
+            "type": "object",
+            "patternProperties": {
+              "^\\{\\{[A-Z0-9_]+\\}\\}$": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "wordCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "duration": {
+                "type": "number",
+                "minimum": 0
+              },
+              "interactivity": {
+                "type": "string",
+                "enum": ["static", "interactive"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "css": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fonts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scripts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "strict": {
+          "type": "boolean",
+          "default": true
+        },
+        "inlineCSS": {
+          "type": "boolean",
+          "default": true
+        },
+        "sandboxHTML": {
+          "type": "boolean",
+          "default": true
+        },
+        "optimizeImages": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}
