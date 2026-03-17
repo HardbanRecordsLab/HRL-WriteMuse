@@ -31,7 +31,7 @@ export const useAiStreaming = ({ onDelta, onComplete, onError }: UseAiStreamingO
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-writer`,
+        `/api/ai/writer`,
         {
           method: 'POST',
           headers: {
