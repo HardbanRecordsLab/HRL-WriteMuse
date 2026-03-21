@@ -141,12 +141,12 @@ export const LandingPage = ({ onStartDemo, onLogin }: LandingPageProps) => {
         className="relative z-10 flex items-center justify-between px-6 lg:px-12 py-5 max-w-7xl mx-auto"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl editor-gradient flex items-center justify-center shadow-glow">
-            <BookOpen className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 overflow-hidden rounded-xl shadow-glow">
+            <img src="/favicon.png" alt="Logo" className="h-full w-full object-contain" />
           </div>
           <div>
             <span className="text-lg font-semibold text-foreground tracking-tight">
-              WriterStudio
+              HRL WriteMuse
             </span>
           </div>
         </div>
@@ -289,7 +289,7 @@ export const LandingPage = ({ onStartDemo, onLogin }: LandingPageProps) => {
             </div>
             <div className="flex-1 flex justify-center">
               <div className="px-4 py-1 rounded-md bg-secondary/50 text-xs text-muted-foreground">
-                writerstudio.app
+                app-writemuse.hardbanrecordslab.online
               </div>
             </div>
           </div>
@@ -309,7 +309,7 @@ export const LandingPage = ({ onStartDemo, onLogin }: LandingPageProps) => {
                 <Play className="w-8 h-8 text-white ml-0.5" />
               </motion.div>
               <div className="space-y-2">
-                <p className="text-foreground font-medium">Zobacz jak działa WriterStudio</p>
+                <p className="text-foreground font-medium">Zobacz jak działa HRL WriteMuse</p>
                 <p className="text-sm text-muted-foreground">Kliknij „Rozpocznij pisanie" powyżej</p>
               </div>
             </motion.div>

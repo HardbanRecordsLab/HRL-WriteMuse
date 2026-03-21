@@ -119,12 +119,12 @@ export const AppSidebar = ({
                 exit={{ opacity: 0, x: -10 }}
                 className="flex items-center gap-3"
               >
-                <div className="w-9 h-9 rounded-xl editor-gradient flex items-center justify-center shadow-glow">
-                  <BookMarked className="w-5 h-5 text-white" />
+                <div className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center shadow-glow">
+                  <img src="/favicon.png" alt="Logo" className="h-full w-full object-contain" />
                 </div>
                 <div>
-                  <span className="font-bold text-base text-foreground font-serif">WriterStudio</span>
-                  <p className="text-[10px] text-muted-foreground">AI-Powered Writing</p>
+                  <span className="font-bold text-base text-foreground font-serif">HRL WriteMuse</span>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest">AI Editor</p>
                 </div>
               </motion.div>
             ) : (
@@ -133,9 +133,9 @@ export const AppSidebar = ({
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="w-9 h-9 rounded-xl editor-gradient flex items-center justify-center mx-auto shadow-glow"
+                className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center mx-auto shadow-glow"
               >
-                <BookMarked className="w-5 h-5 text-white" />
+                <img src="/favicon.png" alt="Logo" className="h-full w-full object-contain" />
               </motion.div>
             )}
           </AnimatePresence>
