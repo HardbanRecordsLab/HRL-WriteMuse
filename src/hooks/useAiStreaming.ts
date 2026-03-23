@@ -12,6 +12,8 @@ export const useAiStreaming = ({ onDelta, onComplete, onError }: UseAiStreamingO
   const [streamedText, setStreamedText] = useState('');
   const abortControllerRef = useRef<AbortController | null>(null);
 
+  const { token } = useAuth();
+
   const streamAiWriter = useCallback(async (
     action: string,
     prompt: string,
@@ -24,19 +26,17 @@ export const useAiStreaming = ({ onDelta, onComplete, onError }: UseAiStreamingO
     abortControllerRef.current = new AbortController();
     
     try {
-      // Get current session for auth token
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) {
-        throw new Error('Nie jesteś zalogowany');
+      if (!token) {
+        throw new Error('Nie jesteś zalogowany (HRL Unified SSO wymagane)');
       }
 
       const response = await fetch(
-        `/api/ai/writer`,
+        `https://writemuse.hardbanrecordslab.online/api/ai/writer`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session.access_token}`,
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({
             action,
