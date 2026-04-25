@@ -1,60 +1,26 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useAuth } from './AuthProvider';
-import { useToast } from '@/hooks/use-toast';
 import { Loader2, BookOpen, Sparkles } from 'lucide-react';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, signUp } = useAuth();
   const { toast } = useToast();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      await signIn(email, password);
-      toast({
-        title: "Witamy z powrotem!",
-        description: "Pomyślnie zalogowano do edytora.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Błąd logowania",
-        description: error.message || "Sprawdź email i hasło.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+    // SSO redirect - login is handled by WordPress
+    window.location.href = import.meta.env.VITE_WP_LOGIN_URL || 'https://hardbanrecordslab.online/login';
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      await signUp(email, password);
-      toast({
-        title: "Konto utworzone!",
-        description: "Możesz teraz zalogować się do edytora.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Błąd rejestracji",
-        description: error.message || "Nie udało się utworzyć konta.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+    // SSO redirect - registration is handled by WordPress
+    window.location.href = import.meta.env.VITE_WP_LOGIN_URL || 'https://hardbanrecordslab.online/login';
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '@/components/AuthProvider';
+import { useAuth } from '@/contexts/AuthContext';
 import { LoginForm } from '@/components/LoginForm';
 import { LandingPage } from '@/components/LandingPage';
 import { DemoBanner } from '@/components/DemoBanner';
@@ -41,7 +41,10 @@ import {
 } from '@/data/demoData';
 
 const Index = () => {
-  const { user, signOut, loading } = useAuth();
+  const { user, logout, isLoading: loading } = useAuth();
+  // Map HRL user to WriteMuse user format
+  const writerUser = user ? { id: user.userId, email: user.email } : null;
+  const signOut = logout;
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [currentView, setCurrentView] = useState<'dashboard' | 'editor'>('dashboard');
   const [activeTab, setActiveTab] = useState<'editor' | 'distribution' | 'collaboration' | 'covers' | 'royalties'>('editor');
@@ -54,7 +57,7 @@ const Index = () => {
   const { toast } = useToast();
 
   // Get effective user ID
-  const effectiveUserId = isDemoMode ? 'demo-user-123' : user?.id || null;
+  const effectiveUserId = isDemoMode ? 'demo-user-123' : writerUser?.id || null;
 
   // Use documents hook
   const {
@@ -242,7 +245,7 @@ const Index = () => {
           onOpenLibrary={() => setLibraryOpen(true)}
           onSignOut={handleSignOut}
           isDemoMode={isDemoMode}
-          user={user ? { email: user.email } : null}
+          user={writerUser ? { email: writerUser.email } : null}
         />
 
         {/* Desktop App Sidebar */}
@@ -253,7 +256,7 @@ const Index = () => {
           onOpenLibrary={() => setLibraryOpen(true)}
           onSignOut={handleSignOut}
           isDemoMode={isDemoMode}
-          user={user ? { email: user.email } : null}
+          user={writerUser ? { email: writerUser.email } : null}
           recentDocuments={documents.slice(0, 5)}
           onSelectDocument={handleSelectDocumentById}
           writingStreak={isDemoMode ? DEMO_STATS.writingStreak : 3}
@@ -438,7 +441,7 @@ const Index = () => {
                           documentId={selectedDocument.id}
                           documentTitle={selectedDocument.title}
                           documentDescription={selectedDocument.description || ''}
-                          authorName={user?.email?.split('@')[0] || 'Autor'}
+                          authorName={writerUser?.email?.split('@')[0] || 'Autor'}
                           isDemoMode={isDemoMode}
                           onCoverGenerated={(url) => fetchDocuments()}
                         />
