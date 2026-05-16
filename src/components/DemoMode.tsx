@@ -1,5 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '@supabase/supabase-js';
+
+interface User {
+  id: string;
+  email: string;
+  user_metadata?: { full_name?: string };
+  created_at?: string;
+}
 
 interface DemoContextType {
   isDemoMode: boolean;
@@ -22,11 +28,9 @@ export const useDemoMode = () => {
 const DEMO_USER: User = {
   id: 'demo-user-123',
   email: 'demo@writemuse.pro',
-  app_metadata: {},
   user_metadata: { full_name: 'Demo User' },
-  aud: 'authenticated',
   created_at: new Date().toISOString(),
-} as User;
+};
 
 export const DemoModeProvider = ({ children }: { children: React.ReactNode }) => {
   const [isDemoMode, setIsDemoMode] = useState(false);
