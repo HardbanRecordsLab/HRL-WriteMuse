@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface UseAiStreamingOptions {
   onDelta: (text: string) => void;
@@ -27,7 +27,7 @@ export const useAiStreaming = ({ onDelta, onComplete, onError }: UseAiStreamingO
     
     try {
       if (!token) {
-        throw new Error('Nie jesteś zalogowany (HRL Unified SSO wymagane)');
+        throw new Error('Brak lokalnego tokena aplikacji');
       }
 
       const response = await fetch(
@@ -137,7 +137,7 @@ export const useAiStreaming = ({ onDelta, onComplete, onError }: UseAiStreamingO
       setIsStreaming(false);
       abortControllerRef.current = null;
     }
-  }, [onDelta, onComplete, onError, streamedText]);
+  }, [onDelta, onComplete, onError, streamedText, token]);
 
   const cancelStream = useCallback(() => {
     if (abortControllerRef.current) {

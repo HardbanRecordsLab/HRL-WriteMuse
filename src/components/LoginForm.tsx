@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, BookOpen, Sparkles } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -13,14 +15,18 @@ export const LoginForm = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    // SSO redirect - login is handled by WordPress
-    window.location.href = import.meta.env.VITE_WP_LOGIN_URL || 'https://hardbanrecordslab.online/login';
+    setLoading(true);
+    localStorage.setItem('hrl_local_app_auth', 'hrl-local-app-token');
+    toast({ title: 'Dostep lokalny wlaczony' });
+    setLoading(false);
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    // SSO redirect - registration is handled by WordPress
-    window.location.href = import.meta.env.VITE_WP_LOGIN_URL || 'https://hardbanrecordslab.online/login';
+    setLoading(true);
+    localStorage.setItem('hrl_local_app_auth', 'hrl-local-app-token');
+    toast({ title: 'Konto lokalne gotowe' });
+    setLoading(false);
   };
 
   return (
